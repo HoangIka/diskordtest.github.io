@@ -29,4 +29,4 @@ jobs:
         npm install -D webpack -y
         npm install -D webpack-cli -y
         npm install -D webpack-dev-server -y
-        npx webpack serve
+        node ./main.js
