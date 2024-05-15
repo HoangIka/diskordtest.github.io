@@ -26,5 +26,6 @@ jobs:
       run: |
         npm install
         npm install mkdirp@latest
-        npm install webpack -y
+        npm install -D webpack -y
+        npm install -D webpack-cli -y
         npx webpack serve
