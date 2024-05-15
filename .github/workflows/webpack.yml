@@ -27,3 +27,4 @@ jobs:
         npm install
         npm install mkdirp@latest
         npm install webpack -y
+        npx webpack serve
