@@ -3,17 +3,23 @@ var textbox1 = document.querySelector(".text1");
 var textbox2 = document.querySelector(".text2");
 async function send(e){
   e.preventDefault();
-  if(textbox1.value==""&&textbox2.value=="") return;
-  const data = await fetch('/',{
-    method: 'POST',
-    headers: {
-      'Content-Type':'application/json'
-    },
-    body: JSON.stringify({
-      id:"Sent()", username:textbox1.value, message:textbox2.value})
-  }).then(res => res.json()).catch(error=>console.log(error))
-  textbox1.value="";
-  textbox2.value="";
+  if(textbox1.value!=""&&textbox2.value!=""){
+    const pE = document.createElement("p");
+      pE.classList.add("chatbox-text");
+      pE.innerHTML+=String(textbox1.value)+":<br>"+textbox2.value;
+      const chatbox = document.querySelector(".chatbox");
+      chatbox.appendChild(pE);
+    const data = await fetch('/',{
+      method: 'POST',
+      headers: {
+        'Content-Type':'application/json'
+      },
+      body: JSON.stringify({
+        id:"Sent()", username:textbox1.value, message:textbox2.value})
+    }).then(res => res.json()).catch(error=>console.log(error))
+    textbox1.value="";
+    textbox2.value="";
+  }
 }
 
 function sleep(time){
