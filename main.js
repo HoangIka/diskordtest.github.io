@@ -84,7 +84,7 @@ function log(time) {
   return new Promise(res=>setInterval(res,time));
 }
 
-app.listen(10000,()=>{console.log('server đã sẵn sàng!')});
+app.listen(10000,()=>{console.log('server đã sẵn sàng!.')});
 
 
 
