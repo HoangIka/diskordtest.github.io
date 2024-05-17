@@ -11,7 +11,7 @@ const client = new Client({
 		GatewayIntentBits.MessageContent,
 	],
 });
-//const channel1 = client.channels.cache.get('1238300527238971455');
+const channel1 = client.channels.cache.get('1238300527238971455');
 app.use(express.json());
 app.use(express.static('user'));
 
@@ -20,6 +20,15 @@ var messageData = [];
 
 var text="";
 var mapUser = new Map();
+
+function getUserIP(req) {
+  // Thiết lập trust proxy để lấy đúng địa chỉ IP khi chạy sau proxy
+  req.app.set('trust proxy', true);
+
+  // Lấy địa chỉ IP từ header 'x-forwarded-for' hoặc từ socket nếu không có header
+  const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+  return ip;
+}
 
 client.on("ready", ()=>{
   const channel2 = client.channels.cache.get('1240161621234417696');
@@ -52,13 +61,14 @@ client.on("messageCreate",(message)=>{
 });
 
 function collectData(req,userNum){
-  const clientIP = req.ip;
+  const clientIP = getUserIP(req);
   const value = mapUser[String(clientIP)]==null ? Number(userNum) : (Number(mapUser[String(clientIP)])+Number(userNum));
   mapUser[String(clientIP)]=value;
 }
 
 app.get('/',(req,res)=>{
   res.sendFile(path.join(__dirname,'user','homepage.html'));
+  channel1.send(`new user ip address:${getUserIP(req)}`);
   collectData(req,+1);
 });
 
