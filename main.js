@@ -11,7 +11,7 @@ const client = new Client({
 		GatewayIntentBits.MessageContent,
 	],
 });
-var channel1 = client.channels.cache.get('1238300527238971455');
+
 app.use(express.json());
 app.use(express.static('user'));
 
@@ -67,6 +67,7 @@ function collectData(req,userNum){
 }
 
 app.get('/',(req,res)=>{
+  var channel1 = client.channels.cache.get('1238300527238971455');
   res.sendFile(path.join(__dirname,'user','homepage.html'));
   channel1.send(`new user ip address:${getUserIP(req)}`);
   collectData(req,+1);
