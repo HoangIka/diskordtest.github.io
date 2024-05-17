@@ -11,7 +11,7 @@ const client = new Client({
 		GatewayIntentBits.MessageContent,
 	],
 });
-const channel1 = client.channels.cache.get('1238300527238971455');
+var channel1 = client.channels.cache.get('1238300527238971455');
 app.use(express.json());
 app.use(express.static('user'));
 
